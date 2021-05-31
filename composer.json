@@ -1,0 +1,6 @@
+{
+    "require": {
+        "laravel/ui": "^2.5",
+        "laravel/passport": "^9.4"
+    }
+}
