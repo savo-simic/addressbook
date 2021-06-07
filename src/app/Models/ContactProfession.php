@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class City extends Model
+class ContactProfession extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -17,10 +17,8 @@ class City extends Model
    */
 
     protected $primaryKey = 'id';
-    protected $table = 'cities';
-    public $timestamps = true;
-    protected $fillable = ['name', 'country_id'];
-    protected $with = ['country'];
+    protected $table = 'contact_profession';
+    protected $fillable = ['user_id'];
 
     /*
     |--------------------------------------------------------------------------
@@ -33,24 +31,6 @@ class City extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
-    /**
-     * Country relation
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
-
-    /**
-     * Country relation
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function agency()
-    {
-        return $this->belongsTo(Agency::class);
-    }
 
     /*
     |--------------------------------------------------------------------------
