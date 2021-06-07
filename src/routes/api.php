@@ -17,11 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post(
+    '/login-user',
+    ['uses' => 'App\Http\Controllers\API\AuthController@login', 'as' => 'login-user']
+);
 
 // Api routes for countries
-
-
-Route::middleware(['api'])->get(
+Route::middleware(['auth:api'])->get(
     '/countries/index',
     ['uses' => 'App\Http\Controllers\API\CountryController@index', 'as' => 'countries.index']
 );

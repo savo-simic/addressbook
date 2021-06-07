@@ -11,9 +11,12 @@ use Illuminate\Http\Response;
 
 class CountryController extends BaseController
 {
-
     public function index(Request $request)
     {
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
+        }
 
         if ($request->ajax()) {
             $country = Country::get();

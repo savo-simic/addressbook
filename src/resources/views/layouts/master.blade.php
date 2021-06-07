@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name') }} @hasSection('title') - @yield('title') @endif</title>
         <link rel="stylesheet" href="{{ url('/css/app.css') }}">
         <link rel="stylesheet" href="{{ url('/fonts/icons-1.4.0/font/bootstrap-icons.css') }}">

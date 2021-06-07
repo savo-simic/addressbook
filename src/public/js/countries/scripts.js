@@ -1,7 +1,8 @@
 // Pass csrf token in ajax header
-
-$(document).ready(function() {
-
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
 });
 
 function allData() {
@@ -9,6 +10,7 @@ function allData() {
         type: "GET",
         dataType: "json",
         url: 'http://localhost:88/api/countries/index',
+        headers: {"Authorization": localStorage.getItem('access_token')},
         success: function(response) {
             let data = ""
             $.each(response.data, function(key, value) {
@@ -28,11 +30,7 @@ function allData() {
 }
 allData();
 
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
+
 
 $("#addCountryModal").on('hidden.bs.modal', function () {
     $(".error").remove();
@@ -44,20 +42,6 @@ $("#addSuccessModal").on('hidden.bs.modal', function () {
 });
 
 // // ---------- [ Show country ] ----------------
-// function show2() {
-//     $('#showCountryModal').find('#countryId').text("Id: " +res.data.id);
-//     $('#showCountryModal').find('#countryName').text("Name: " +res.data.name);
-//     $('#showCountryModal').modal('show');
-//
-//     let id  = $(e).data("id");
-//     let todo  = $("#todo_"+id+" td:nth-child(2)").html();
-//     $("#todo_id").val(id);
-//     $("#edittask").val(todo);
-//     $('#editTodoModal').modal('show');
-// }
-//
-
-
 function showCountry(id) {
     $.ajax({
         url: 'http://localhost:88/api/countries/show/'+id,
@@ -75,7 +59,6 @@ function showCountry(id) {
         }
     });
 }
-
 
 // create new country
 function createCountry(event) {
@@ -98,7 +81,7 @@ function createCountry(event) {
         method: 'POST',
         data: data,
         dataType: 'json',
-
+        headers: {"Authorization": 'Bearer '+localStorage.getItem('access_token')},
         beforeSend:function() {
             $("#createCountryBtn").addClass("disabled");
             $("#createCountryBtn").text("Processing...");

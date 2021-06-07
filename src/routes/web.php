@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ProfessionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\AuthController as APIAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('register', [AuthController::class, 'index'])->middleware('guest')->name('register');
 Route::get('login', [AuthController::class, 'index'])->middleware('guest')->name('login');
-
+//Route::get('login-user', [APIAuthController::class, 'index'])->middleware('guest')->name('login-user');
 Route::group(['middleware' => 'auth'], function() {
     Route::get('countries/index', [CountryController::class, 'index'])->name('countries.index');
     Route::get('cities/index', [CityController::class, 'index'])->name('cities.index');
