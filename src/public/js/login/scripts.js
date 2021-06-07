@@ -5,7 +5,7 @@ $.ajaxSetup({
     }
 });
 
-$('#login').click(function() {
+$('#login2').click(function() {
     let email = $("#email").val();
     let password = $("#password").val();
     let token = $("meta[name='csrf-token']").attr("content");
@@ -21,7 +21,7 @@ $('#login').click(function() {
             if(res.status === "success") {
                 console.log('login success');
                 localStorage.setItem('access_token', res.access_token)
-                window.location.href = "http://localhost:88/countries/index";
+                window.location.href = "http://localhost:88/api/countries/index";
             }
         },
         error:function (res) {

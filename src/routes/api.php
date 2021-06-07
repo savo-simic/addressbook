@@ -40,11 +40,11 @@ Route::middleware(['api'])->put(
     '/countries/edit/{id}',
     ['uses' => 'App\Http\Controllers\API\CountryController@update', 'as' => 'countries.update']
 );
-Route::middleware(['api'])->post(
+Route::middleware(['auth:api'])->post(
     '/countries/create',
     ['uses' => 'App\Http\Controllers\API\CountryController@create', 'as' => 'countries.create']
 );
-Route::middleware(['api'])->delete(
+Route::middleware(['auth:api'])->delete(
     '/countries/delete/{id}',
     ['uses' => 'App\Http\Controllers\API\CountryController@destroy', 'as' => 'countries.delete']
 );

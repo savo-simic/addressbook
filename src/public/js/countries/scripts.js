@@ -10,8 +10,11 @@ function allData() {
         type: "GET",
         dataType: "json",
         url: 'http://localhost:88/api/countries/index',
-        headers: {"Authorization": localStorage.getItem('access_token')},
-        success: function(response) {
+        headers: {
+            // "Authorization":  'Bearer ' +  localStorage.getItem('access_token'),
+            'Accept': 'application/json',
+        },
+        success: function(response) {       console.log( localStorage.getItem('access_token'));
             let data = ""
             $.each(response.data, function(key, value) {
                 data = data + "<tr class="+value.id+" id="+value.id+"'>"
@@ -81,7 +84,10 @@ function createCountry(event) {
         method: 'POST',
         data: data,
         dataType: 'json',
-        headers: {"Authorization": 'Bearer '+localStorage.getItem('access_token')},
+        headers: {
+            // "Authorization":  'Bearer ' +  localStorage.getItem('access_token'),
+            'Accept': 'application/json',
+        },
         beforeSend:function() {
             $("#createCountryBtn").addClass("disabled");
             $("#createCountryBtn").text("Processing...");

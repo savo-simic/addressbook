@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('register', [AuthController::class, 'index'])->middleware('guest')->name('register');
 Route::get('login', [AuthController::class, 'index'])->middleware('guest')->name('login');
-//Route::get('login-user', [APIAuthController::class, 'index'])->middleware('guest')->name('login-user');
+Route::post('login-user', [AuthController::class, 'customLogin'])->middleware('guest')->name('login-user');
 Route::group(['middleware' => 'auth'], function() {
     Route::get('countries/index', [CountryController::class, 'index'])->name('countries.index');
     Route::get('cities/index', [CityController::class, 'index'])->name('cities.index');
