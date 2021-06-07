@@ -10,7 +10,7 @@
     <div class="container ml-1">
         <div class="row">
             @include('partials.sidebar')
-            <div class="col-lg-6 col-sm-6 margin-tb">
+            <div class="col-lg-8 col-sm-8 margin-tb">
                 <div class="pull-left">
                     <h2>Crud operations for Contacts</h2>
                 </div>
