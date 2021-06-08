@@ -11,7 +11,7 @@ function allData() {
         dataType: "json",
         url: 'http://localhost:88/api/countries/index',
         headers: {
-            // "Authorization":  'Bearer ' +  localStorage.getItem('access_token'),
+            "Authorization":  'Bearer ' +  localStorage.getItem('access_token'),
             'Accept': 'application/json',
         },
         success: function(response) {       console.log( localStorage.getItem('access_token'));

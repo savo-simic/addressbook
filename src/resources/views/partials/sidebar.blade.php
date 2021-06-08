@@ -156,9 +156,9 @@
     {{--                    <li class="nav-item">--}}
     {{--                        <a class="nav-link" href="{{ route('edit.user') }}">Edit user</a>--}}
     {{--                    </li>--}}
-    {{--                    <li class="nav-item">--}}
-    {{--                        <a class="nav-link" href="{{ route('signout') }}">Logout</a>--}}
-    {{--                    </li>--}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('signout') }}">Logout</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

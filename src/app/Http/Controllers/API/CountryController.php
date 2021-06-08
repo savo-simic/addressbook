@@ -18,16 +18,12 @@ class CountryController extends BaseController
             return 'Not authenticated.';
         }
 
-//        if ($request->ajax()) {
-            $country = Country::get();
+        $country = Country::get();
 
-            return [
-                'status' => "success",
-                'data'   => $country,
-            ];
-//        }
-
-        return view('countries.index');
+        return [
+            'status' => "success",
+            'data'   => $country,
+        ];
     }
 
     public function cities($id)

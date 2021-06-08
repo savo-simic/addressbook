@@ -50,7 +50,7 @@ Route::middleware(['auth:api'])->delete(
 );
 
 // Api routes for cities
-Route::middleware(['api'])->get(
+Route::middleware(['auth:api'])->get(
     '/cities/index',
     ['uses' => 'App\Http\Controllers\API\CityController@index', 'as' => 'cities.index']
 );

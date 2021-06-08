@@ -33,4 +33,5 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('agencies/index', [AgencyController::class, 'index'])->name('agencies.index');
     Route::get('contacts/index', [ContactController::class, 'index'])->name('contacts.index');
     Route::get('professions/index', [ProfessionController::class, 'index'])->name('professions.index');
+    Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
 });
