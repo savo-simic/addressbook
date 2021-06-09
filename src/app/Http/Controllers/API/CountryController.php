@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 
 class CountryController extends BaseController
 {
-    public function index(Request $request)
+    public function index()
     {
         $user = \Auth::guard('api')->user();
         if (!$user) {

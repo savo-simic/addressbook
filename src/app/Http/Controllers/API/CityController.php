@@ -14,17 +14,17 @@ class CityController extends BaseController
 
     public function index(Request $request)
     {
-
-        if ($request->ajax()) {
-            $cities = City::with('country')->get();
-
-            return [
-                'status' => "success",
-                'data'   => $cities,
-            ];
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
         }
 
-        return view('cities.index');
+        $cities = City::with('country')->get();
+
+        return [
+            'status' => "success",
+            'data'   => $cities,
+        ];
     }
 
     public function show($id)

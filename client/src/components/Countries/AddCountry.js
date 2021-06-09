@@ -5,12 +5,14 @@ export default class AddCountry extends Component {
     render() {
         return (
             <div>
-                <Button className="float-right mb-4" color="primary"  onClick={this.props.toggleAddCountryModal}>
+                <Button style={{ float: "left" }} className="float-left mb-4 ml-2" color="primary"  onClick={this.props.toggleAddCountryModal}>
                     Add Country
                 </Button>
-                <Modal  isOpen={this.props.AddCountryModal}
+                <Modal  isOpen={this.props.addCountryModal}
                         toggle={this.props.toggleAddCountryModal}>
-                    <ModalHeader toggle={this.props.toggleAddCountryModal}>Add new Country</ModalHeader>
+                    <ModalHeader toggle={this.props.toggleAddCountryModal}>
+                        Add new Country
+                    </ModalHeader>
                     <ModalBody>
                         <FormGroup>
                             <Label for="name">Name</Label>

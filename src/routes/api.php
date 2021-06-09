@@ -28,15 +28,15 @@ Route::middleware(['auth:api'])->get(
     ['uses' => 'App\Http\Controllers\API\CountryController@index', 'as' => 'countries.index']
 );
 
-Route::middleware(['api'])->get(
+Route::middleware(['auth:api'])->get(
     '/countries/cities/{countryId}',
     ['uses' => 'App\Http\Controllers\API\CountryController@cities', 'as' => 'countries.cities']
 );
-Route::middleware(['api'])->get(
+Route::middleware(['auth:api'])->get(
     '/countries/show/{id}',
     ['uses' => 'App\Http\Controllers\API\CountryController@show', 'as' => 'countries.show']
 );
-Route::middleware(['api'])->put(
+Route::middleware(['auth:api'])->put(
     '/countries/edit/{id}',
     ['uses' => 'App\Http\Controllers\API\CountryController@update', 'as' => 'countries.update']
 );
@@ -54,19 +54,19 @@ Route::middleware(['auth:api'])->get(
     '/cities/index',
     ['uses' => 'App\Http\Controllers\API\CityController@index', 'as' => 'cities.index']
 );
-Route::middleware(['api'])->get(
+Route::middleware(['auth:api'])->get(
     '/cities/show/{id}',
     ['uses' => 'App\Http\Controllers\API\CityController@show', 'as' => 'cities.show']
 );
-Route::middleware(['api'])->post(
+Route::middleware(['auth:api'])->post(
     '/cities/create',
     ['uses' => 'App\Http\Controllers\API\CityController@create', 'as' => 'cities.create']
 );
-Route::middleware(['api'])->put(
+Route::middleware(['auth:api'])->put(
     '/cities/edit/{id}',
     ['uses' => 'App\Http\Controllers\API\CityController@update', 'as' => 'cities.update']
 );
-Route::middleware(['api'])->delete(
+Route::middleware(['auth:api'])->delete(
     '/cities/delete/{id}',
     ['uses' => 'App\Http\Controllers\API\CityController@destroy', 'as' => 'cities.delete']
 );
