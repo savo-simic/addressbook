@@ -12,6 +12,7 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import Navbar from "./components/Navbar";
 import Countries from "./components/Countries/Countries";
 import Cities from "./components/Cities/Cities";
+import Professions from "./components/Professions/Professions";
 
 export default class App extends Component {
   render() {
@@ -37,6 +38,7 @@ export default class App extends Component {
                       <Route path="/home" component={Home} />
                       <Route path="/countries" component={Countries} />
                       <Route path="/cities" component={Cities} />
+                      <Route path="/professions" component={Professions} />
                   </Switch>
               </Router>
           ) : (

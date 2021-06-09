@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from "reactstrap";
 
-export default class AddCity extends Component {
+export default class ShowCity extends Component {
     render() {
         return (
             <div>
                 <Modal  isOpen={this.props.showCityModal}
-                        toggle={this.props.toggleShowCityyModal}>
+                        toggle={this.props.toggleShowCityModal}>
                     <ModalHeader toggle={this.props.toggleShowCityModal}>
                         Show City
                     </ModalHeader>

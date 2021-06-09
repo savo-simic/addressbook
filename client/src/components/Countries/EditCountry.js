@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input} from "reactstrap";
 
-export default class editCountry extends Component {
+export default class EditCountry extends Component {
     render() {
         return (
             <div>

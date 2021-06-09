@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input} from "reactstrap";
 import Select from "react-select";
 
-export default class editCity extends Component {
+export default class EditCity extends Component {
     render() {
         return (
             <div>

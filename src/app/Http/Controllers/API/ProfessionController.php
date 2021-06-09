@@ -14,22 +14,17 @@ class ProfessionController extends BaseController
 
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $professions = Profession::get();
+        $professions = Profession::all();
 
-            return [
-                'status' => "success",
-                'data'   => $professions,
-            ];
-        }
-
-        return view('professions.index');
+        return [
+            'status' => "success",
+            'data'   => $professions,
+        ];
     }
 
     public function show($id)
     {
         $profession = Profession::findOrFail($id);
-
 
         return [
             'status' => "success",
