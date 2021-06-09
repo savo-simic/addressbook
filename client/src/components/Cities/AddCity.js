@@ -23,11 +23,6 @@ export default class AddCity extends Component {
                         </FormGroup>
                         <FormGroup>
                             <Label for="name">Country</Label>
-                            {/*<select id="country_id"*/}
-                            {/*        value={this.props.selectedCountry}*/}
-                            {/*        onChange={(e) => this.props.setSelectedCountry({selectedCountry: e.target.value})}>*/}
-                            {/*    { this.props.countries.map((option, key) => <option key={option.id} value={option.id} >{option.name}</option>) }*/}
-                            {/*</select>*/}
                             <Select options={this.props.countries} onChange={this.props.onChangeCountriesDropdownHandler}/>
                         </FormGroup>
                     </ModalBody>

@@ -90,7 +90,7 @@ export default class Cities extends Component {
             headers: { Authorization: `Bearer ${token}` }
         };
         axios.get("http://localhost:88/api/cities/show/"+id, config).then((response) => {
-            if (response.status === 200) {console.log(response)
+            if (response.status === 200) {
                 this.setState({
                     cityData: response.data.data ? response.data.data : [],
                     showCityModal: !this.state.showCityModal,
@@ -107,11 +107,13 @@ export default class Cities extends Component {
         });
     };
     onChangeCountriesDropdownHandler = (selectedCountry) => {
-        this.setState({ selectedCountry });
-        let { newCityData } = this.state;
+        // this.setState({ selectedCountry });
+        let { newCityData, editCityData } = this.state;
         newCityData['country_id'] = selectedCountry.value;
-        this.setState({ newCityData });
+        editCityData['country_id'] = selectedCountry.value;
+        this.setState({ newCityData, editCityData:editCityData });
     }
+
     toggleShowCityModal = () => {
         this.setState({
             showCityModal: !this.state.showCityModal,
@@ -173,14 +175,33 @@ export default class Cities extends Component {
     };
 
     editCity = (id, name) => {
-        this.setState({
-            editCityData: { id, name },
-            editCityModal: !this.state.editCityModal,
+        const token = localStorage.getItem("access_token");
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+        let { editCityData } = this.state;
+        axios.get("http://localhost:88/api/cities/show/"+id, config).then((response) => {
+            if (response.status === 200) {
+                let data = response.data.data;
+                // editCityData['country_id'] = data.country_id;
+                this.setState({
+                    editCityData:data,
+                    editCityModal: !this.state.editCityModal,
+                });
+            }
+            if (
+                response.data.status === "failed" &&
+                response.data.success === false
+            ) {
+                this.setState({
+                    noDataFound: response.data.message,
+                });
+            }
         });
     };
 
     updateCity = () => {
-        let {id, name} = this.state.editCityData;
+        let {id, country_id, name} = this.state.editCityData;
         const token = localStorage.getItem("access_token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
@@ -191,15 +212,15 @@ export default class Cities extends Component {
         axios
             .put("http://localhost:88/api/cities/edit/"+id, {
                     name,
-                    id,
+                    country_id,
                 },
                 config
             )
             .then((response) => {
-                this.getCountries();
+                this.getCities();
                 this.setState({
                     editCityModal: false,
-                    editCityData: { name },
+                    editCityData: { name, country_id },
                     isLoading:false,
                 });
             })
@@ -274,14 +295,16 @@ export default class Cities extends Component {
                         addCity={this.addCity}
                         countries={this.state.countries}
                     />
-                    {/*<EditCity*/}
-                    {/*    toggleEditCityModal={this.toggleEditCityModal}*/}
-                    {/*    editCityModal={this.state.editCityModal}*/}
-                    {/*    onChangeEditCityHandler={this.onChangeEditCityHandler}*/}
-                    {/*    editCity={this.editCity}*/}
-                    {/*    editCityData={editCityData}*/}
-                    {/*    updateCity={this.updateCity}*/}
-                    {/*/>*/}
+                    <EditCity
+                        toggleEditCityModal={this.toggleEditCityModal}
+                        editCityModal={this.state.editCityModal}
+                        onChangeEditCityHandler={this.onChangeEditCityHandler}
+                        onChangeCountriesDropdownHandler={this.onChangeCountriesDropdownHandler}
+                        editCity={this.editCity}
+                        editCityData={editCityData}
+                        updateCity={this.updateCity}
+                        countries={this.state.countries}
+                    />
                     <div className="col-md-10 ">
                         <Table>
                             <thead>

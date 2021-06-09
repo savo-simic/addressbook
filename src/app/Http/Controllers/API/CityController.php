@@ -30,6 +30,9 @@ class CityController extends BaseController
     public function show($id)
     {
         $city = City::with('country')->findOrFail($id);
+        if (is_null($city)) {
+            return response(['status' => "failed"]);
+        }
 
         return [
             'status' => "success",
