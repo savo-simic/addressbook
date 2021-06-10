@@ -48,9 +48,9 @@ export default class Agencies extends Component {
     }
 
     componentDidMount() {
-        this.getAgencies();
         this.getCountries();
         this.getCities();
+        this.getAgencies();
     }
 
     getCountries() {
@@ -333,7 +333,7 @@ export default class Agencies extends Component {
                         <td>{agency.id}</td>
                         <td>{agency.name}</td>
                         <td>{agency.address}</td>
-                        <td>{agency.city.name}</td>
+                        <td>{agency.city ? agency.city.name :''}</td>
                         <td>{agency.phone}</td>
                         <td>{agency.email}</td>
                         <td>{agency.web}</td>
