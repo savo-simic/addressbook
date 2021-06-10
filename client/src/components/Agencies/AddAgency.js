@@ -22,12 +22,36 @@ export default class AddAgency extends Component {
                                    onChange={this.props.onChangeAddAgencyHandler} />
                         </FormGroup>
                         <FormGroup>
+                            <Label for="address">Address</Label>
+                            <Input id="address" name="address"
+                                   value={this.props.newAgencyData.address}
+                                   onChange={this.props.onChangeAddAgencyHandler} />
+                        </FormGroup>
+                        <FormGroup>
                             <Label for="name">Country</Label>
                             <Select options={this.props.countries} onChange={this.props.onChangeCountriesDropdownHandler}/>
                         </FormGroup>
                         <FormGroup>
                             <Label for="name">City</Label>
                             <Select options={this.props.cities} onChange={this.props.onChangeCitiesDropdownHandler}/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="phone">Phone</Label>
+                            <Input id="phone" name="phone"
+                                   value={this.props.newAgencyData.phone}
+                                   onChange={this.props.onChangeAddAgencyHandler} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="email">Email</Label>
+                            <Input id="email" name="email"
+                                   value={this.props.newAgencyData.email}
+                                   onChange={this.props.onChangeAddAgencyHandler} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="web">Web</Label>
+                            <Input id="web" name="web"
+                                   value={this.props.newAgencyData.web}
+                                   onChange={this.props.onChangeAddAgencyHandler} />
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>

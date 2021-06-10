@@ -106,7 +106,7 @@ export default class Cities extends Component {
             }
         });
     };
-    onChangeCountriesDropdownHandler = (selectedCountry) => {
+    onChangeCountriesDropdownHandler = (selectedCountry) => { console.log('xx')
         // this.setState({ selectedCountry });
         let { newCityData, editCityData } = this.state;
         newCityData['country_id'] = selectedCountry.value;

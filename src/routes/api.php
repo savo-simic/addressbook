@@ -95,24 +95,24 @@ Route::middleware(['api'])->delete(
 );
 
 // Api routes for agencies
-Route::middleware(['api'])->get(
+Route::middleware(['auth:api'])->get(
     '/agencies/index',
     ['uses' => 'App\Http\Controllers\API\AgencyController@index', 'as' => 'agencies.index']
 );
 
-Route::middleware(['api'])->get(
+Route::middleware(['auth:api'])->get(
     '/agencies/show/{id}',
     ['uses' => 'App\Http\Controllers\API\AgencyController@show', 'as' => 'agencies.show']
 );
-Route::middleware(['api'])->post(
+Route::middleware(['auth:api'])->post(
     '/agencies/create',
     ['uses' => 'App\Http\Controllers\API\AgencyController@create', 'as' => 'agencies.create']
 );
-Route::middleware(['api'])->put(
+Route::middleware(['auth:api'])->put(
     '/agencies/edit/{id}',
     ['uses' => 'App\Http\Controllers\API\AgencyController@update', 'as' => 'agencies.update']
 );
-Route::middleware(['api'])->delete(
+Route::middleware(['auth:api'])->delete(
     '/agencies/delete/{id}',
     ['uses' => 'App\Http\Controllers\API\AgencyController@destroy', 'as' => 'agencies.delete']
 );

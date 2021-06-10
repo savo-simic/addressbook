@@ -1,24 +1,34 @@
 import React, { Component } from "react";
 import {Button, Table} from "reactstrap";
 import axios from "axios";
-import ShowProfession from "./ShowAgency";
-import AddProfession from "./AddAgency";
-import EditProfession from "./EditAgency";
-import AddCity from "../Cities/AddCity";
-import EditCity from "../Cities/EditCity";
+import ShowAgency from "./ShowAgency";
+import AddAgency from "./AddAgency";
+import EditAgency from "./EditAgency";
 
 export default class Agencies extends Component {
     constructor(props){
         super(props);
         this.state = {
             agencies: [],
+            cities: [],
             countries: [],
             agencyData: {
                 id: "",
                 name: "",
+                address: "",
+                city_id: "",
+                phone: "",
+                email: "",
+                web: "",
             },
             newAgencyData: {
+                id: "",
                 name: "",
+                address: "",
+                city_id: "",
+                phone: "",
+                email: "",
+                web: "",
             },
             isLoading: false,
             status: "",
@@ -26,6 +36,11 @@ export default class Agencies extends Component {
             editAgencyData: {
                 id: "",
                 name: "",
+                address: "",
+                city_id: "",
+                phone: "",
+                email: "",
+                web: "",
             },
             editAgencyModal: false,
             noDataFound: "",
@@ -35,6 +50,7 @@ export default class Agencies extends Component {
     componentDidMount() {
         this.getAgencies();
         this.getCountries();
+        this.getCities();
     }
 
     getCountries() {
@@ -49,6 +65,28 @@ export default class Agencies extends Component {
                 })
                 this.setState({
                     countries: options,
+                });
+            }
+            if (
+                response.data.status === "failed" &&
+                response.data.success === false
+            ) {
+                this.setState({
+                    noDataFound: response.data.message,
+                });
+            }
+        });
+    }
+
+    getCities() {
+        const token = localStorage.getItem("access_token");
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+        axios.get("http://localhost:88/api/cities/index", config).then((response) => {
+            if (response.status === 200) {
+                this.setState({
+                    cities: response.data.data ? response.data.data : [],
                 });
             }
             if (
@@ -92,7 +130,7 @@ export default class Agencies extends Component {
         axios.get("http://localhost:88/api/agencies/show/"+id, config).then((response) => {
             if (response.status === 200) {
                 this.setState({
-                    agenciyData: response.data.data ? response.data.data : [],
+                    agencyData: response.data.data ? response.data.data : [],
                     showAgencyModal: !this.state.showAgencyModal,
                 });
             }
@@ -107,24 +145,22 @@ export default class Agencies extends Component {
         });
     };
 
-    onChangeCountriesDropdownHandler = (selectedCountry) => {
-        // this.setState({ selectedCountry });
+    onChangeCountriesDropdownHandler = (selectedCountry) => { console.log('countries')
         let { newAgencyData, editAgencyData } = this.state;
         newAgencyData['country_id'] = selectedCountry.value;
         editAgencyData['country_id'] = selectedCountry.value;
-        // this.setState({ newAgencyData, editAgencyData:editAgencyData });
+
         const token = localStorage.getItem("access_token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
         axios.get("http://localhost:88/api/countries/cities/"+selectedCountry.value, config).then((response) => {
-            if (response.status === 200) { console.log(response.data.data)
+            if (response.status === 200) {
                 let options =  response.data.data.map(function (value) {
                     return { value: value.id, label: value.name };
                 })
                 this.setState({
                     cities:options,
-                    // showAgencyModal: !this.state.showAgencyModal,
                 });
             }
             if (
@@ -137,6 +173,14 @@ export default class Agencies extends Component {
             }
         });
     }
+
+    onChangeCitiesDropdownHandler = (selectedCity) => {
+        let { newAgencyData, editAgencyData } = this.state;
+        newAgencyData['city_id'] = selectedCity.value;
+        editAgencyData['city_id'] = selectedCity.value;
+        this.setState({ newAgencyData, editAgencyData:editAgencyData });
+    }
+
     toggleShowAgencyModal = () => {
         this.setState({
             showAgencyModal: !this.state.showAgencyModal,
@@ -176,6 +220,11 @@ export default class Agencies extends Component {
                         addAgencyModal: false,
                         newAgencyData: {
                             name: "",
+                            address: "",
+                            city_id: "",
+                            phone: "",
+                            email: "",
+                            web: "",
                         },
                     },
                     () => this.getAgencies()
@@ -196,14 +245,33 @@ export default class Agencies extends Component {
     };
 
     editAgency = (id, name) => {
-        this.setState({
-            editAgencyData: { id, name },
-            editAgencyModal: !this.state.editAgencyModal,
+        const token = localStorage.getItem("access_token");
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+        let { editAgencyData } = this.state;
+        axios.get("http://localhost:88/api/agencies/show/"+id, config).then((response) => {
+            if (response.status === 200) {
+                let data = response.data.data;
+
+                this.setState({
+                    editAgencyData:data,
+                    editAgencyModal: !this.state.editAgencyModal,
+                });
+            }
+            if (
+                response.data.status === "failed" &&
+                response.data.success === false
+            ) {
+                this.setState({
+                    noDataFound: response.data.message,
+                });
+            }
         });
     };
 
     updateAgency = () => {
-        let {id, name} = this.state.editAgencyData;
+        let {id, name, address, city_id, phone, email, web} = this.state.editAgencyData;
         const token = localStorage.getItem("access_token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
@@ -213,8 +281,8 @@ export default class Agencies extends Component {
         });
         axios
             .put("http://localhost:88/api/agencies/edit/"+id, {
-                name,
-                id,
+                    id, name, address, city_id, phone, email, web
+
             },
                 config
             )
@@ -264,6 +332,11 @@ export default class Agencies extends Component {
                     <tr key={agency.id}>
                         <td>{agency.id}</td>
                         <td>{agency.name}</td>
+                        <td>{agency.address}</td>
+                        <td>{agency.city.name}</td>
+                        <td>{agency.phone}</td>
+                        <td>{agency.email}</td>
+                        <td>{agency.web}</td>
                         <td>
                             <Button color="warning" size="sm" className="m-1" onClick={() => this.showAgency(agency.id)}>Show</Button>
                             <Button color="success" size="sm" className="m-1" onClick={() => this.editAgency(agency.id, agency.name,)}>
@@ -281,13 +354,13 @@ export default class Agencies extends Component {
             <div className="container pl-5">
                 <div className="row">
                     <h3 className="font-weight-bold mt-2">Crud operations for Agencies</h3>
-                    {/*<ShowProfession*/}
-                    {/*    toggleShowProfessionModal={this.toggleShowProfessionModal}*/}
-                    {/*    showProfessionModal={this.state.showProfessionModal}*/}
-                    {/*    professionData={professionData}*/}
-                    {/*    showProfession={this.showProfession}*/}
-                    {/*/>*/}
-                    <AddProfession
+                    <ShowAgency
+                        toggleShowAgencyModal={this.toggleShowAgencyModal}
+                        showAgencyModal={this.state.showAgencyModal}
+                        agencyData={agencyData}
+                        showProfession={this.showProfession}
+                    />
+                    <AddAgency
                         toggleAddAgencyModal={this.toggleAddAgencyModal}
                         addAgencyModal={this.state.addAgencyModal}
                         onChangeAddAgencyHandler={this.onChangeAddAgencyHandler}
@@ -299,20 +372,29 @@ export default class Agencies extends Component {
                         countries={this.state.countries}
                         cities={this.state.cities}
                     />
-                    {/*<EditProfession*/}
-                    {/*    toggleEditProfessionModal={this.toggleEditProfessionModal}*/}
-                    {/*    editProfessionModal={this.state.editProfessionModal}*/}
-                    {/*    onChangeEditProfessionHandler={this.onChangeEditProfessionHandler}*/}
-                    {/*    editProfession={this.editProfession}*/}
-                    {/*    editProfessionData={editProfessionData}*/}
-                    {/*    updateProfession={this.updateProfession}*/}
-                    {/*/>*/}
+                    <EditAgency
+                        toggleEditAgencyModal={this.toggleEditAgencyModal}
+                        editAgencyModal={this.state.editAgencyModal}
+                        onChangeEditAgencyHandler={this.onChangeEditAgencyHandler}
+                        onChangeCountriesDropdownHandler={this.onChangeCountriesDropdownHandler}
+                        onChangeCitiesDropdownHandler={this.onChangeCitiesDropdownHandler}
+                        editAgency={this.editAgency}
+                        editAgencyData={editAgencyData}
+                        updateAgency={this.updateAgency}
+                        countries={this.state.countries}
+                        cities={this.state.cities}
+                    />
                     <div className="col-md-10 ">
                         <Table>
                             <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Web</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>

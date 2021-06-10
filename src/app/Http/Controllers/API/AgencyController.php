@@ -13,23 +13,25 @@ class AgencyController extends BaseController
 
     public function index(Request $request)
     {
-
-        if ($request->ajax()) {
-            $agencies = Agency::with('city')->get();
-//            $agencies = Agency::get();
-            return [
-                'status' => "success",
-                'data'   => $agencies,
-            ];
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
         }
 
-        return view('agencies.index');
+        $agencies = Agency::with('city')->get();
+
+        return [
+            'status' => "success",
+            'data'   => $agencies,
+        ];
     }
 
     public function show($id)
     {
-        $agency = Agency::with('city')->findOrFail($id);
-
+        $agency = Agency::with('city')->find($id);
+        if (!$agency) {
+            return 'Agency Not found.';
+        }
 
         return [
             'status' => "success",
@@ -69,6 +71,11 @@ class AgencyController extends BaseController
 
         $data = $request->validate([
             'name' => ['required'],
+            'address' => ['required'],
+            'city_id' => ['required'],
+            'phone' => ['required'],
+            'email' => ['required'],
+            'web' => ['required'],
         ]);
 
         $agency->update($data);
@@ -82,7 +89,11 @@ class AgencyController extends BaseController
 
     public function destroy($id)
     {
-        $agency = Agency::findOrFail($id);
+        $agency = Agency::find($id);
+        if (!$agency) {
+            return 'Not agency found.';
+        }
+
         $agency->delete();
 
         return [
