@@ -14,7 +14,7 @@ export const SidebarData = [
     {
         title: "Countries",
         path: "/countries",
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoMdGlobe />,
         cName: "nav-text"
     },
     {
@@ -26,19 +26,19 @@ export const SidebarData = [
     {
         title: "Contacts",
         path: "/contacts",
-        icon: <IoIcons.IoMdPeople />,
+        icon: <IoIcons.IoMdContacts />,
         cName: "nav-text"
     },
     {
         title: "Agencies",
         path: "/agencies",
-        icon: <FaIcons.FaEnvelopeOpenText />,
+        icon: <IoIcons.IoMdDocument />,
         cName: "nav-text"
     },
     {
         title: "Professions",
         path: "/professions",
-        icon: <IoIcons.IoMdHelpCircle />,
+        icon: <IoIcons.IoMdCompass />,
         cName: "nav-text"
     }
 ];
