@@ -4,9 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Agency;
 use App\Models\Contact;
+
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Response;
+use League\CommonMark\Inline\Element\Image;
 
 
 class ContactController extends BaseController
@@ -48,21 +50,21 @@ class ContactController extends BaseController
     public function create(Request $request)
     {
         $data = $request->validate([
-//            'first_name' => 'required',
-//            'last_name' => 'required',
-//            'agency_id' => 'required',
-//            'phone' => 'required',
-//            'email' => 'required',
-//            'web' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'agency_id' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'web' => 'required',
             'avatar' => 'required',
         ]);
 
-        return $request->all();
-//        $imageName = time().'.'.$request->avatar->getClientOriginalExtension();
-//        $data['avatar'] = $imageName;
-        $imageName = $data['avatar'] ;
-
-//        $request->avatar->move(public_path('images'), $imageName);
+        $image = $request->avatar;
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = rand(10,22).'.'.'png';
+        \File::put(public_path('images'). '/' . $imageName, base64_decode($image));
+        $data['avatar'] = $imageName;
         $professions = $request->professions;
 
         $contact = Contact::create($data);

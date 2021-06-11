@@ -50,6 +50,8 @@ export default class Contacts extends Component {
             },
             editContactModal: false,
             noDataFound: "",
+            selectedFile : null
+
         };
         this.onDrop = this.onDrop.bind(this);
     }
@@ -59,11 +61,11 @@ export default class Contacts extends Component {
         this.getAgencies();
         this.getProfessions();
     }
-    onDrop(picture, pictureDataURLs) {
+    onDrop2(picture, pictureDataURLs) {        console.log(picture);
         let { newContactData } = this.state;
-        let fd = new FormData();
-        fd.append("avatar", picture);
+        // this.setState({selectedFile: event.target.files[0]})
         newContactData['avatar'] = picture;
+
         this.setState({ newContactData });
         console.log(newContactData);
         // let { newContactData } = this.state;
@@ -71,6 +73,31 @@ export default class Contacts extends Component {
         // this.setState({ newContactData });
         
     }
+
+    toBase64 = (file) => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            console.log("reader", reader);
+            reader.onloadend = () => {
+                resolve(reader.result);
+            };
+
+            reader.readAsDataURL(file);
+        });
+    };
+
+    onDrop = async (picture) => {
+        console.log("picture", picture);
+        let { newContactData } = this.state;
+        if (picture.length) {
+            const base64Image = await this.toBase64(picture[0]);
+            // this.setState({ pictures: base64Image });
+            newContactData['avatar'] = base64Image;
+            this.setState({ newContactData });
+        }
+    };
+
+
 
     getAgencies() {
         const token = localStorage.getItem("access_token");

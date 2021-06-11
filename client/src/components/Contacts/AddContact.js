@@ -60,7 +60,7 @@ export default class AddContact extends Component {
                         {/*           id="avatar"*/}
                         {/*           name="avatar"*/}
                         {/*           value={this.props.newContactData.avatar}*/}
-                        {/*           onChange={this.props.onChangeAddContactHandler} />*/}
+                        {/*           onChange={this.props.onDrop} />*/}
                         {/*</FormGroup>*/}
                         <FormGroup>
                             <Label for="avatar">Avatar</Label><br/>
