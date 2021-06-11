@@ -32,7 +32,7 @@ export default class Contacts extends Component {
                 phone: "",
                 email: "",
                 web: "",
-                avatar: "",
+                avatar: [],
             },
             isLoading: false,
             status: "",
@@ -46,17 +46,30 @@ export default class Contacts extends Component {
                 phone: "",
                 email: "",
                 web: "",
-                avatar: "",
+                avatar: '',
             },
             editContactModal: false,
             noDataFound: "",
-        }
+        };
+        this.onDrop = this.onDrop.bind(this);
     }
 
     componentDidMount() {
         this.getContacts();
         this.getAgencies();
         this.getProfessions();
+    }
+    onDrop(picture, pictureDataURLs) {
+        let { newContactData } = this.state;
+        let fd = new FormData();
+        fd.append("avatar", picture);
+        newContactData['avatar'] = picture;
+        this.setState({ newContactData });
+        console.log(newContactData);
+        // let { newContactData } = this.state;
+        // newContactData['avatar'] = pictureFiles;
+        // this.setState({ newContactData });
+        
     }
 
     getAgencies() {
@@ -188,13 +201,13 @@ export default class Contacts extends Component {
         });
     };
 
-    onChangeAddContactHandler = (e) => {
+    onChangeAddContactHandler = (e) => { console.log(e)
         let { newContactData } = this.state;
         newContactData[e.target.name] = e.target.value;
         this.setState({ newContactData });
     };
 
-    addContact = () => {
+    addContact = () => { console.log(this.state.newContactData);
         const token = localStorage.getItem("access_token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
@@ -363,6 +376,7 @@ export default class Contacts extends Component {
                         onChangeAddContactHandler={this.onChangeAddContactHandler}
                         onChangeAgenciesDropdownHandler={this.onChangeAgenciesDropdownHandler}
                         onChangeProfessionsDropdownHandler={this.onChangeProfessionsDropdownHandler}
+                        onDrop={this.onDrop}
                         newContactData={newContactData}
                         addContact={this.addContact}
                         contacts={this.state.contacts}

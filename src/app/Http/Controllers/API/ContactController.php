@@ -48,16 +48,16 @@ class ContactController extends BaseController
     public function create(Request $request)
     {
         $data = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'agency_id' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'web' => 'required',
+//            'first_name' => 'required',
+//            'last_name' => 'required',
+//            'agency_id' => 'required',
+//            'phone' => 'required',
+//            'email' => 'required',
+//            'web' => 'required',
             'avatar' => 'required',
         ]);
 
-
+        return $request->all();
 //        $imageName = time().'.'.$request->avatar->getClientOriginalExtension();
 //        $data['avatar'] = $imageName;
         $imageName = $data['avatar'] ;

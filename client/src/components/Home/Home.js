@@ -3,6 +3,7 @@ import {Button, Table} from "reactstrap";
 import { Redirect } from "react-router-dom";
 import createHistory from 'history/createBrowserHistory';
 import axios from "axios";
+
 export default class Home extends Component {
     constructor(props){
         super(props);
