@@ -9,7 +9,8 @@ export default class Home extends Component {
         super(props);
         this.state = {
             contacts: [],
-            navigate:false
+            navigate:false,
+            searchTerm: ""
         }
     }
 
@@ -27,13 +28,13 @@ export default class Home extends Component {
         history.go(0);
     };
 
-    getContacts() {
+    getContacts() { console.log('....1')
         const token = localStorage.getItem("access_token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
         axios.get("http://localhost:88/api/contacts/index", config).then((response) => {
-            if (response.status === 200) {console.log(response)
+            if (response.status === 200) {
                 this.setState({
                     contacts: response.data.data ? response.data.data : [],
                 });
@@ -47,6 +48,33 @@ export default class Home extends Component {
                 });
             }
         });
+    }
+
+    search() {
+        const token = localStorage.getItem("access_token");
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+        let $searchTerm = this.state.searchTerm;
+        axios.get("http://localhost:88/api/contacts/search/" +$searchTerm, config).then((response) => {
+            if (response.status === 200) {console.log((response))
+                this.setState({
+                    contacts: response.data ? response.data : [],
+                });
+            }
+            if (
+                response.data.status === "failed" &&
+                response.data.success === false
+            ) {
+                this.setState({
+                    noDataFound: response.data.message,
+                });
+            }
+        });
+    }
+
+    editSearchTerm = (e) => {
+        this.setState({searchTerm: e.target.value});
     }
 
     render() {
@@ -65,7 +93,7 @@ export default class Home extends Component {
         let contactsDetails = [];
         let agencyDetails = [];
         if (contacts.length) {
-            contactsDetails = contacts.map((contact) => { console.log(contact)
+            contactsDetails = contacts.map((contact) => {
                 return (
                     <tr key={contact.id}>
                         <td>{contact.id}</td>
@@ -76,7 +104,7 @@ export default class Home extends Component {
                 );
             });
 
-            agencyDetails = contacts.map((contact) => { console.log(contact)
+            agencyDetails = contacts.map((contact) => {
                 return (
                     <tr key={contact.id}>
                         <td>{contact.id}</td>
@@ -91,7 +119,7 @@ export default class Home extends Component {
             <div className="container  border">
                 <h3> HomePage</h3>
                 <div className="row">
-                    <div className="col-xl-9 col-sm-12 col-md-9 text-dark">
+                    <div className="col-xl-9 col-sm-12 col-md-9 text-dark float-start">
                         <h5> Welcome, {name} </h5> You have Logged in successfully.
                     </div>
                     <div className="col-xl-3 col-sm-12 col-md-3">
@@ -101,6 +129,17 @@ export default class Home extends Component {
                         >
                             Logout
                         </Button>
+                    </div>
+                </div>
+                <div className="row mt-5">
+                    <div className="col-xl-12 col-sm-12 col-md-12 text-dark float-start">
+                        <input type= 'text'
+                               value = {this.state.searchTerm}
+                               onChange = {this.editSearchTerm}
+                               placeholder = 'Search for a name!'
+                        />
+                        <Button color="primary" size="sm"  onClick={() => this.search()}> Search </Button>
+                        {/*{this.resultDetails}*/}
                     </div>
                 </div>
                 <div className="row mt-5">

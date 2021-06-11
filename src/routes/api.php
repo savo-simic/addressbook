@@ -136,6 +136,10 @@ Route::middleware(['auth:api'])->put(
     '/contacts/edit/{id}',
     ['uses' => 'App\Http\Controllers\API\ContactController@update', 'as' => 'contacts.update']
 );
+Route::middleware(['api'])->get(
+    '/contacts/search/{searchTerm}',
+    ['uses' => 'App\Http\Controllers\API\ContactController@search', 'as' => 'contacts.search']
+);
 Route::middleware(['auth:api'])->delete(
     '/contacts/delete/{id}',
     ['uses' => 'App\Http\Controllers\API\ContactController@destroy', 'as' => 'contacts.delete']

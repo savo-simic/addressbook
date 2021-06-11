@@ -105,6 +105,17 @@ class ContactController extends BaseController
         ];
     }
 
+    public function search($searchTerm)
+    {
+        return Contact::with('agency')
+            ->where('first_name', 'LIKE', "%$searchTerm%" )
+            ->orWhere('last_name','LIKE', "%$searchTerm%")
+            ->orWhere('phone','LIKE', "%$searchTerm%")
+            ->orWhere('email','LIKE', "%$searchTerm%")
+            ->orWhere('web','LIKE', "%$searchTerm%")
+            ->get();
+    }
+
     public function destroy($id)
     {
         $contact = Contact::findOrFail($id);
