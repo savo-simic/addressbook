@@ -14,22 +14,30 @@ class ContactController extends BaseController
 
     public function index(Request $request)
     {
-
-        if ($request->ajax()) {
-            $contacts = Contact::get();
-//            $agencies = Agency::get();
-            return [
-                'status' => "success",
-                'data'   => $contacts,
-            ];
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
         }
 
-        return view('contacts.index');
+        $contacts = Contact::with('agency')->get();
+
+        return [
+            'status' => "success",
+            'data'   => $contacts,
+        ];
     }
 
     public function show($id)
     {
-        $contact = Contact::findOrFail($id);
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
+        }
+
+        $contact = Contact::with('professions')->find($id);
+        if (!$contact) {
+            return 'Contact Not found.';
+        }
 
         return [
             'status' => "success",
@@ -50,12 +58,15 @@ class ContactController extends BaseController
         ]);
 
 
-        $imageName = time().'.'.$request->avatar->getClientOriginalExtension();
-        $data['avatar'] = $imageName;
+//        $imageName = time().'.'.$request->avatar->getClientOriginalExtension();
+//        $data['avatar'] = $imageName;
+        $imageName = $data['avatar'] ;
 
-        $request->avatar->move(public_path('images'), $imageName);
+//        $request->avatar->move(public_path('images'), $imageName);
+        $professions = $request->professions;
+
         $contact = Contact::create($data);
-
+        $contact->professions()->attach($professions);
         if (is_null($contact)) {
             return response(['status' => "failed"]);
         }
@@ -74,7 +85,13 @@ class ContactController extends BaseController
         }
 
         $data = $request->validate([
-            'name' => ['required'],
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'agency_id' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'web' => 'required',
+            'avatar' => 'required',
         ]);
 
         $agency->update($data);

@@ -119,24 +119,24 @@ Route::middleware(['auth:api'])->delete(
 
 
 // Api routes for contacts
-Route::middleware(['api'])->get(
+Route::middleware(['auth:api'])->get(
     '/contacts/index',
     ['uses' => 'App\Http\Controllers\API\ContactController@index', 'as' => 'contacts.index']
 );
 
-Route::middleware(['api'])->get(
+Route::middleware(['auth:api'])->get(
     '/contacts/show/{id}',
     ['uses' => 'App\Http\Controllers\API\ContactController@show', 'as' => 'contacts.show']
 );
-Route::middleware(['api'])->post(
+Route::middleware(['auth:api'])->post(
     '/contacts/create',
     ['uses' => 'App\Http\Controllers\API\ContactController@create', 'as' => 'contacts.create']
 );
-Route::middleware(['api'])->put(
+Route::middleware(['auth:api'])->put(
     '/contacts/edit/{id}',
     ['uses' => 'App\Http\Controllers\API\ContactController@update', 'as' => 'contacts.update']
 );
-Route::middleware(['api'])->delete(
+Route::middleware(['auth:api'])->delete(
     '/contacts/delete/{id}',
     ['uses' => 'App\Http\Controllers\API\ContactController@destroy', 'as' => 'contacts.delete']
 );

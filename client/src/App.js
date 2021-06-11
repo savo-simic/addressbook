@@ -14,6 +14,7 @@ import Countries from "./components/Countries/Countries";
 import Cities from "./components/Cities/Cities";
 import Professions from "./components/Professions/Professions";
 import Agencies from "./components/Agencies/Agencies";
+import Contacts from "./components/Contacts/Contacts";
 
 export default class App extends Component {
   render() {
@@ -41,6 +42,7 @@ export default class App extends Component {
                       <Route path="/cities" component={Cities} />
                       <Route path="/professions" component={Professions} />
                       <Route path="/agencies" component={Agencies} />
+                      <Route path="/contacts" component={Contacts} />
                   </Switch>
               </Router>
           ) : (
