@@ -50,6 +50,6 @@ class AuthController extends Controller
 
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
-        return response(['status' => 'success', 'user' => auth()->user(), 'access_token' => $accessToken]);
+        return response(['status' => 'success', 'user' => auth()->user(), 'userId' =>auth()->id(), 'access_token' => $accessToken]);
     }
 }

@@ -8,6 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 Download and install [Docker](https://www.docker.com/get-started).
 Download and install [MySQL Workbench](https://www.mysql.com/products/workbench/).
+Download and install [Postman](https://www.postman.com/downloads/).
 Create database with credentials that matches .env file ie 
 ```sh
 DB_CONNECTION=mysql
@@ -88,15 +89,15 @@ In your browser navigate to: http://localhost:3000/register
 
 Add new user with:
 
- - Email: admin
- - Password: admin
+ - Email: admin@test.com
+ - Password: 1111
  
  In your browser navigate to: http://localhost:3000/login
  
  Login user with:
- 
-  - Email: admin
-  - Password: admin
+
+- Email: admin@test.com
+- Password: 1111
 
 ### API example routes
 Get a list of all contacts

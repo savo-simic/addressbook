@@ -33,15 +33,18 @@ export default class Login extends Component {
                 email: this.state.email,
                 password: this.state.password,
             })
-            .then((response) => {console.log(response);
+            .then((response) => {
                 this.setState({ isLoading: false });
-                if (response.data.status === "success") { console.log(response);
+                if (response.data.status === "success") {
                     //check this
                     const history = createHistory();
                     history.go(0);
                     localStorage.setItem("isLoggedIn", true);
                     localStorage.setItem("userData", response.data.user.name);
+                    localStorage.setItem("userId", response.data.userId);
+                    localStorage.setItem("userRole", response.data.user.user_roles[0].role);
                     localStorage.setItem("access_token", response.data.access_token);
+
                     this.setState({
                         msg: response.data.message,
                         redirect: true,

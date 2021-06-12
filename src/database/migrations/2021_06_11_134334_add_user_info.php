@@ -15,9 +15,12 @@ class AddUserInfo extends Migration
     {
         $user = new \App\Models\User();
         $user->name = 'admin';
-        $user->email = 'admin1@test.com';
+        $user->email = 'admin@test.com';
         $user->password = \Illuminate\Support\Facades\Hash::make('1111');
         $user->save();
+
+        $role  = new \App\Models\UserRole(['user_id' => $user->id, 'role' => 'Administrator']);
+        $user->setRoles(['Administrator']);
     }
 
     /**

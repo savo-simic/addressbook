@@ -5,7 +5,7 @@ import "./App.css";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 
-import {BrowserRouter as Router, Route, NavLink, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, NavLink, Switch, Redirect} from "react-router-dom";
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import Register from "./components/Register/Register";
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -15,6 +15,7 @@ import Cities from "./components/Cities/Cities";
 import Professions from "./components/Professions/Professions";
 import Agencies from "./components/Agencies/Agencies";
 import Contacts from "./components/Contacts/Contacts";
+import ContactView from "./components/ContactView/ContactView";
 
 export default class App extends Component {
   render() {
@@ -29,10 +30,11 @@ export default class App extends Component {
         </div>
     );
     const login = localStorage.getItem("isLoggedIn");
-
+    const userRole = localStorage.getItem("userRole");
+console.log(userRole);
     return (
         <div className="App">
-          {login ? (
+          {login && userRole =="Administrator" ? (
               <Router>
                   <Route path="/login" component={Login}></Route>
                   <Navbar/>
@@ -45,14 +47,28 @@ export default class App extends Component {
                       <Route path="/contacts" component={Contacts} />
                   </Switch>
               </Router>
-          ) : (
-              <Router>
-                {/*{navLink}*/}
-                <Route path="/login" component={Login}></Route>
-                <Route path="/home" component={Home}></Route>
+          ) : ''
+          }
+            {login && userRole =="Contact" ?
+            (
+                <Router>
+                    {/*<Navbar/>*/}
+                    <Switch>
+                        <Route path="/login" component={Login}></Route>
+                        <Route path="/home" component={ContactView}></Route>
+                    </Switch>
 
-              </Router>
-          )}
+
+                </Router>
+            ) :''
+            }
+            {!login ? (
+                <Router>
+                <Redirect to={{ pathname: '/login'}} />
+                    <Route path="/login" component={Login}></Route>
+
+
+                </Router>) :''}
         </div>
     );
   }

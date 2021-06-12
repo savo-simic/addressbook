@@ -22,6 +22,21 @@ Route::post(
     ['uses' => 'App\Http\Controllers\API\AuthController@login', 'as' => 'login-user']
 );
 
+// Api routes for Users
+Route::middleware(['auth:api'])->get(
+    '/users/index',
+    ['uses' => 'App\Http\Controllers\API\UserController@index', 'as' => 'users.index']
+);
+Route::middleware(['auth:api'])->get(
+    '/users/show/{id}',
+    ['uses' => 'App\Http\Controllers\API\UserController@show', 'as' => 'users.show']
+);
+
+Route::middleware(['auth:api'])->put(
+    '/users/edit/{id}',
+    ['uses' => 'App\Http\Controllers\API\UserController@update', 'as' => 'users.update']
+);
+
 // Api routes for countries
 Route::middleware(['auth:api'])->get(
     '/countries/index',
