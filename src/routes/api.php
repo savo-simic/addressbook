@@ -31,10 +31,17 @@ Route::middleware(['auth:api'])->get(
     '/users/show/{id}',
     ['uses' => 'App\Http\Controllers\API\UserController@show', 'as' => 'users.show']
 );
-
+Route::middleware(['auth:api'])->post(
+    '/users/create',
+    ['uses' => 'App\Http\Controllers\API\UserController@create', 'as' => 'users.create']
+);
 Route::middleware(['auth:api'])->put(
     '/users/edit/{id}',
     ['uses' => 'App\Http\Controllers\API\UserController@update', 'as' => 'users.update']
+);
+Route::middleware(['auth:api'])->delete(
+    '/users/delete/{id}',
+    ['uses' => 'App\Http\Controllers\API\UserController@destroy', 'as' => 'users.delete']
 );
 
 // Api routes for countries

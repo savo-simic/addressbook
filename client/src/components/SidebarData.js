@@ -40,5 +40,11 @@ export const SidebarData = [
         path: "/professions",
         icon: <IoIcons.IoMdCompass />,
         cName: "nav-text"
+    },
+    {
+        title: "Users",
+        path: "/users",
+        icon: <IoIcons.IoMdContacts />,
+        cName: "nav-text"
     }
 ];

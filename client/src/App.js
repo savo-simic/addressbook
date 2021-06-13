@@ -15,6 +15,7 @@ import Cities from "./components/Cities/Cities";
 import Professions from "./components/Professions/Professions";
 import Agencies from "./components/Agencies/Agencies";
 import Contacts from "./components/Contacts/Contacts";
+import Users from "./components/Users/Users";
 import ContactView from "./components/ContactView/ContactView";
 
 export default class App extends Component {
@@ -45,6 +46,7 @@ console.log(userRole);
                       <Route path="/professions" component={Professions} />
                       <Route path="/agencies" component={Agencies} />
                       <Route path="/contacts" component={Contacts} />
+                      <Route path="/users" component={Users} />
                   </Switch>
               </Router>
           ) : ''
