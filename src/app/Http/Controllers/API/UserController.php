@@ -99,6 +99,7 @@ class UserController extends BaseController
             return 'No user found.';
         }
 
+        $user->userRoles()->delete();
         $user->delete();
 
         return [
