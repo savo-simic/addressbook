@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {Button, Table} from "reactstrap";
 import axios from "axios";
 import ShowUser from "./ShowUser";
@@ -96,6 +96,9 @@ export default class Users extends Component {
     };
 
     toggleAddUserModal = () => {
+        let { newUserData } = this.state;
+        newUserData['role'] = {'role': 'Administrator'};
+
         this.setState({
             addUserModal: !this.state.addUserModal,
         });
@@ -112,6 +115,7 @@ export default class Users extends Component {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
+
         axios
             .post(
                 "http://localhost:88/api/users/create",

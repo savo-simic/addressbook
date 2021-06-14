@@ -50,6 +50,10 @@ class UserController extends BaseController
         $data['password'] = Hash::make($request->password);
 
         $user = User::create($data);
+        $role = $request->role['role'];
+        if ($role) {
+            $user->setRoles([$role]);
+        };
 
         if (is_null($user)) {
             return response(['status' => "failed"]);

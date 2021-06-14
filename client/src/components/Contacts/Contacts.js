@@ -310,7 +310,7 @@ export default class Contacts extends Component {
     updateContact = () => {
         let {id, first_name, last_name, agency_id, professions, phone, email, web, avatar} = this.state.editContactData;
         professions = professions.map(item => {return item.id ? item.id : item })
-        console.log(professions);
+
         const token = localStorage.getItem("access_token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
