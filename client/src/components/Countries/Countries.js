@@ -29,7 +29,7 @@ export default class Countries extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount() {console.log('dfasfdf')
         this.getCountries();
     }
 

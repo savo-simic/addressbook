@@ -32,7 +32,7 @@ export default class App extends Component {
     );
     const login = localStorage.getItem("isLoggedIn");
     const userRole = localStorage.getItem("userRole");
-console.log(userRole);
+
     return (
         <div className="App">
           {login && userRole =="Administrator" ? (
