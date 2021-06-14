@@ -84,13 +84,6 @@ Run npm start
 ```sh
 npm start
 ```
-
-In your browser navigate to: http://localhost:3000/register
-
-Add new user with:
-
- - Email: admin@test.com
- - Password: 1111
  
  In your browser navigate to: http://localhost:3000/login
  

@@ -308,7 +308,9 @@ export default class Contacts extends Component {
     };
 
     updateContact = () => {
-        let {id, name, address, city_id, phone, email, web, avatar} = this.state.editContactData;
+        let {id, first_name, last_name, agency_id, professions, phone, email, web, avatar} = this.state.editContactData;
+        professions = professions.map(item => {return item.id ? item.id : item })
+        console.log(professions);
         const token = localStorage.getItem("access_token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
@@ -317,8 +319,8 @@ export default class Contacts extends Component {
             isLoading: true,
         });
         axios
-            .put("http://localhost:88/api/agencies/edit/"+id, {
-                    id, name, address, city_id, phone, email, web, avatar
+            .put("http://localhost:88/api/contacts/edit/"+id, {
+                    id, first_name, last_name, agency_id, professions, phone, email, web, avatar
 
             },
                 config
@@ -327,7 +329,7 @@ export default class Contacts extends Component {
                 this.getAgencies();
                 this.setState({
                     editContactModal: false,
-                    editContactData: { name },
+                    editContactData: { first_name },
                     isLoading:false,
                 });
             })

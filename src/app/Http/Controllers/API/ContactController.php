@@ -36,7 +36,7 @@ class ContactController extends BaseController
             return 'Not authenticated.';
         }
 
-        $contact = Contact::with('professions')->find($id);
+        $contact = Contact::with(['agency','professions'])->find($id);
         if (!$contact) {
             return 'Contact Not found.';
         }
@@ -81,9 +81,9 @@ class ContactController extends BaseController
 
     public function update(Request $request, $id)
     {
-        $agency = Agency::find($id);
-        if (!$agency) {
-            return 'Not agency found.';
+        $contact = Contact::find($id);
+        if (!$contact) {
+            return 'Not contact found.';
         }
 
         $data = $request->validate([
@@ -95,12 +95,14 @@ class ContactController extends BaseController
             'web' => 'required',
             'avatar' => 'required',
         ]);
-
-        $agency->update($data);
+        $professions = $request->professions;
+        $contact->professions()->detach();
+        $contact->professions()->attach($professions);
+        $contact->update($data);
 
         return [
             'status'  => "success",
-            'data'    => $agency,
+            'data'    => $contact,
             'Message' => "Successfully updated",
         ];
     }

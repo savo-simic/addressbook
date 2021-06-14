@@ -26,13 +26,13 @@ export default class EditContact extends Component {
                         </FormGroup>
                         <FormGroup>
                             <Label for="agency">Agency</Label>
-                            <Select defaultValue={{value: this.props.editContactData.agency_id, label: this.props.editContactData.agency?this.props.editContactData.agency.name:''}}
+                            <Select defaultValue={{value: this.props.editContactData.agency_id, label: this.props.editContactData.agency ? this.props.editContactData.agency.name : ''}}
                                     options={this.props.agencies}
                                     onChange={this.props.onChangeAgenciesDropdownHandler}/>
                         </FormGroup>
                         <FormGroup>
                             <Label for="profession">Profession</Label>
-                            <Select defaultValue={[this.props.editContactData.professions.map(item => {console.log(item.id); return this.props.professions[item.id] })]}
+                            <Select defaultValue={this.props.editContactData.professions ? this.props.editContactData.professions.map(item => {return {value:item.id, label:item.name}  }):''}
                                     options={this.props.professions}
                                     onChange={this.props.onChangeProfessionsDropdownHandler}
                                     isMulti />
