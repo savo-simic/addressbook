@@ -27,8 +27,8 @@ class AlterTableUsersSetNullableEmailPassword extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('email');
-            $table->string('password');
+            $table->string('email')->nullable(false)->change();
+            $table->string('password')->nullable(false)->change();
         });
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SocialAccount extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
    /*
    |--------------------------------------------------------------------------
@@ -17,7 +17,7 @@ class SocialAccount extends Model
    */
 
     protected $primaryKey = 'id';
-    protected $table = 'agencies';
+    protected $table = 'social_accounts';
     public $timestamps = true;
     protected $fillable = [
         'user_id',

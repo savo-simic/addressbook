@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Models\SocialAccount;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Laravel\Socialite\Facades\Socialite;
@@ -39,10 +40,14 @@ class GoogleController extends Controller
                 $socialAccount->fill(['user_id' => $user->id])->save();
             }
         });
+        $accessToken = $user->createToken('authToken')->accessToken;
+
+        $user->setRoles(['Contact']);
 
         return Response::json([
             'user' => $user,
             'google_user' => $googleUser,
+            'access_token' => $accessToken
         ]);
     }
 }

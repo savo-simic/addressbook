@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import {Button, Form, FormGroup, Label, Input} from "reactstrap";
-import axios from "axios";
-import { Redirect } from "react-router-dom";
+import Redirect from "react-router-dom/es/Redirect";
+import {BrowserRouter as Router} from "react-router-dom";
 import createHistory from 'history/createBrowserHistory';
 
 export default class LoginGoogle extends Component {
@@ -9,17 +8,27 @@ export default class LoginGoogle extends Component {
         loading: true,
         error: null,
         data: {},
+        redirect: false,
     };
 
     componentDidMount() {
         fetch(`http://localhost:88/api/auth/google/callback${this.props.location.search}`, { headers: new Headers({ accept: 'application/json' }) })
-            .then((response) => {
+            .then((response) => {console.log('response');
                 if (response.ok) {
                     return response.json();
                 }
                 throw new Error('Something went wrong!');
             })
-            .then((data) => { console.log(data)
+            .then((data) => {console.log(data)
+                const history = createHistory();
+                history.go(0);
+
+                localStorage.setItem("isLoggedIn", true);
+                localStorage.setItem("userData", data.user.name);
+                localStorage.setItem("userId", data.user.id);
+                localStorage.setItem("userRole", data.user.user_roles[0].role);
+                localStorage.setItem("access_token", data.access_token);
+
                 this.setState({ loading: false, data });
             })
             .catch((error) => {
@@ -29,32 +38,6 @@ export default class LoginGoogle extends Component {
     }
 
     render() {
-        const { loading, error, data } = this.state;
-        if (loading) {
-            return <div>Loading....</div>;
-        }
-
-        if (error) {
-            return (
-                <div>
-                    <div>
-                        <p>Error:</p>
-                        <code className="Code-block">{error.toString()}</code>
-                    </div>
-                </div>
-            );
-        }
-
-        return (
-            <div>
-                <div>
-                    <details>
-                        <summary>Welcome {data.user.name}</summary>
-                        <p>Here is your info: </p>
-                        <code className="Code-block">{JSON.stringify(data, null, 2)}</code>
-                    </details>
-                </div>
-            </div>
-        );
+        return <Redirect to={{ pathname: '/home'}} />;
     }
 }

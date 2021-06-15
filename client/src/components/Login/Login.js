@@ -17,6 +17,7 @@ export default class Login extends Component {
             errMsgPwd: "",
             errMsg: "",
             googleLoginUrl: null,
+            data:{}
         };
     }
 
@@ -107,7 +108,7 @@ export default class Login extends Component {
         }
         const isLoading = this.state.isLoading;
         let { googleLoginUrl } = this.state;
-        console.log(googleLoginUrl)
+
         return (
             <div className="container">
                 <div className="row d-flex justify-content-center pt-5">
@@ -153,7 +154,8 @@ export default class Login extends Component {
                                         <span></span>
                                     )}
                                 </Button>
-                                <Button>
+                                <Button    className="text-center mb-4 ms-3"
+                                           color="success">
                                     {googleLoginUrl && (
                                         <a className="App-link" href={googleLoginUrl}>
                                             Sign in with Google
