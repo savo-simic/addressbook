@@ -26,7 +26,7 @@ export default class ContactView extends Component {
     }
 
     getUser = () => {
-        const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("google_access_token");
         const id = localStorage.getItem("userId");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
@@ -71,7 +71,7 @@ export default class ContactView extends Component {
     };
 
     editUser = (id, name) => {
-        const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("google_access_token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
@@ -98,7 +98,7 @@ export default class ContactView extends Component {
 
     updateUser = () => {
         let {id, name, email} = this.state.editUserData;
-        const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("google_access_token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };

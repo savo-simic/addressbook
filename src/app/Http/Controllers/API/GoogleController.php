@@ -47,7 +47,7 @@ class GoogleController extends Controller
         return Response::json([
             'user' => $user,
             'google_user' => $googleUser,
-            'access_token' => $accessToken
+            'google_access_token' => $accessToken
         ]);
     }
 }

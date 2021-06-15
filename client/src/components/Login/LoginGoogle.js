@@ -13,13 +13,13 @@ export default class LoginGoogle extends Component {
 
     componentDidMount() {
         fetch(`http://localhost:88/api/auth/google/callback${this.props.location.search}`, { headers: new Headers({ accept: 'application/json' }) })
-            .then((response) => {console.log('response');
+            .then((response) => {
                 if (response.ok) {
                     return response.json();
                 }
                 throw new Error('Something went wrong!');
             })
-            .then((data) => {console.log(data)
+            .then((data) => {
                 const history = createHistory();
                 history.go(0);
 
@@ -27,7 +27,7 @@ export default class LoginGoogle extends Component {
                 localStorage.setItem("userData", data.user.name);
                 localStorage.setItem("userId", data.user.id);
                 localStorage.setItem("userRole", data.user.user_roles[0].role);
-                localStorage.setItem("access_token", data.access_token);
+                localStorage.setItem("google_access_token", data.google_access_token);
 
                 this.setState({ loading: false, data });
             })
