@@ -22,6 +22,9 @@ Route::post(
     ['uses' => 'App\Http\Controllers\API\AuthController@login', 'as' => 'login-user']
 );
 
+Route::get('auth/google/url', 'App\Http\Controllers\API\GoogleController@loginUrl');
+Route::get('auth/google/callback', 'App\Http\Controllers\API\GoogleController@loginCallback');
+
 //// Api routes for Users
 //Route::middleware(['auth:api', 'roles:Administrator'])->get(
 //    '/users/index',

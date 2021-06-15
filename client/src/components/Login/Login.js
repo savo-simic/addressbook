@@ -16,8 +16,26 @@ export default class Login extends Component {
             errMsgEmail: "",
             errMsgPwd: "",
             errMsg: "",
+            googleLoginUrl: null,
         };
     }
+
+    componentDidMount() {
+        fetch('http://localhost:88/api/auth/google/url', { headers: new Headers({ accept: 'application/json' }) })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Something went wrong!');
+            })
+            .then((data) => {
+
+                this.setState({googleLoginUrl: data.url})
+            })
+            .catch((error) => console.error(error));
+    }
+
+
     onChangeHandler = (e) => {
         let name = e.target.name;
         let value = e.target.value;
@@ -88,9 +106,14 @@ export default class Login extends Component {
             return <Redirect to="/home" />;
         }
         const isLoading = this.state.isLoading;
+        let { googleLoginUrl } = this.state;
+        console.log(googleLoginUrl)
         return (
             <div className="container">
-                <div className="row">
+                <div className="row d-flex justify-content-center pt-5">
+                    <div className="col-md-12 pb-2">
+                        <h3>Login to your account</h3>
+                    </div>
                     <div className="col-md-6">
                         <div>
                             <Form className="containers">
@@ -130,6 +153,14 @@ export default class Login extends Component {
                                         <span></span>
                                     )}
                                 </Button>
+                                <Button>
+                                    {googleLoginUrl && (
+                                        <a className="App-link" href={googleLoginUrl}>
+                                            Sign in with Google
+                                        </a>
+                                    )}
+                                </Button>
+
                             </Form>
                         </div>
                     </div>

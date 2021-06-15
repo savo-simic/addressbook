@@ -17,6 +17,7 @@ import Agencies from "./components/Agencies/Agencies";
 import Contacts from "./components/Contacts/Contacts";
 import Users from "./components/Users/Users";
 import ContactView from "./components/ContactView/ContactView";
+import LoginGoogle from "./components/Login/LoginGoogle";
 
 export default class App extends Component {
   render() {
@@ -68,7 +69,7 @@ export default class App extends Component {
                 <Router>
                 <Redirect to={{ pathname: '/login'}} />
                     <Route path="/login" component={Login}></Route>
-
+                    <Route path="/auth/google" component={LoginGoogle} />
 
                 </Router>) :''}
         </div>
