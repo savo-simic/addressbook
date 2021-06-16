@@ -102,12 +102,14 @@ export default class Countries extends Component {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
-
         let name =   this.state.newCountryData['name'];
+
         if (name === "") {
             alert('Name field is required.');
+
             return;
         }
+
         axios
             .post(
                 "http://localhost:88/api/countries/create",

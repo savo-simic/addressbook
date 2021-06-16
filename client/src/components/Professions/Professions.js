@@ -101,6 +101,14 @@ export default class Professions extends Component {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
+        let name =   this.state.newProfessionData['name'];
+
+        if (name === "") {
+            alert('Name field is required.');
+
+            return;
+        }
+
         axios
             .post(
                 "http://localhost:88/api/professions/create",
@@ -149,6 +157,12 @@ export default class Professions extends Component {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
+
+        if (name === "") {
+            alert('Name field is required.');
+            return;
+        }
+
         this.setState({
             isLoading: true,
         });
