@@ -25,6 +25,7 @@ export default class Agencies extends Component {
                 id: "",
                 name: "",
                 address: "",
+                country_id: "",
                 city_id: "",
                 phone: "",
                 email: "",
@@ -204,6 +205,51 @@ export default class Agencies extends Component {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
+
+        let name =   this.state.newAgencyData['name'];
+        let address =   this.state.newAgencyData['address'];
+        let cityId =   this.state.newAgencyData['city_id'];
+        let countryId =   this.state.newAgencyData['country_id'];
+        let phone =   this.state.newAgencyData['phone'];
+        let email =   this.state.newAgencyData['email'];
+        let web =   this.state.newAgencyData['web'];
+
+        if (name === "") {
+            alert('Name field is required.');
+
+            return;
+
+        } else if (address === "") {
+            alert('Address field is required.');
+
+            return;
+
+        } else if (countryId === "") {
+            alert('Country field is required.');
+
+            return;
+
+        } else if (cityId === "") {
+            alert('City field is required.');
+
+            return;
+
+        } else if (phone === "") {
+            alert('Phone field is required.');
+
+            return;
+
+        } else if (email === "") {
+            alert('Email field is required.');
+
+            return;
+
+        } else if (web === "") {
+            alert('Web field is required.');
+
+            return;
+        }
+
         axios
             .post(
                 "http://localhost:88/api/agencies/create",
