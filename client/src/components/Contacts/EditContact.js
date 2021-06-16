@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input} from "reactstrap";
 import Select from "react-select";
+import ImageUploader from "react-images-upload";
 
 export default class EditContact extends Component {
     render() {
@@ -55,14 +56,21 @@ export default class EditContact extends Component {
                                    value={this.props.editContactData.web}
                                    onChange={this.props.onChangeEditContactHandler} />
                         </FormGroup>
-                        {/*<FormGroup className="mt-3">*/}
-                        {/*    <Label for="avatar">Avatar</Label><br/>*/}
-                        {/*    <Input type="file"*/}
-                        {/*           id="avatar"*/}
-                        {/*           name="avatar"*/}
-                        {/*           value={this.props.editContactData.avatar}*/}
-                        {/*           onChange={this.props.onChangeEditContactHandler} />*/}
-                        {/*</FormGroup>*/}
+                        <FormGroup>
+                            <Label for="avatar">Avatar</Label><br/>
+                            <ImageUploader
+                                id="avatar"
+                                name="avatar"
+                                withIcon={false}
+                                withPreview={true}
+                                label=""
+                                buttonText="Upload Images"
+                                onChange={this.props.onDrop}
+                                imgExtension={[".jpg", ".gif", ".png", ".gif", ".svg"]}
+                                maxFileSize={1048576}
+                                fileSizeError=" file size is too big"
+                            />
+                        </FormGroup>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.props.updateContact}>Update</Button>

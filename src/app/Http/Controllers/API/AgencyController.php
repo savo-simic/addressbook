@@ -28,6 +28,11 @@ class AgencyController extends BaseController
 
     public function show($id)
     {
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
+        }
+
         $agency = Agency::with('city')->find($id);
         if (!$agency) {
             return 'Agency Not found.';
@@ -41,6 +46,11 @@ class AgencyController extends BaseController
 
     public function create(Request $request)
     {
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
+        }
+
         $data = $request->validate([
             'name' => 'required',
             'address' => 'required',
@@ -64,6 +74,11 @@ class AgencyController extends BaseController
 
     public function update(Request $request, $id)
     {
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
+        }
+
         $agency = Agency::find($id);
         if (!$agency) {
             return 'Not agency found.';
@@ -89,6 +104,11 @@ class AgencyController extends BaseController
 
     public function destroy($id)
     {
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
+        }
+
         $agency = Agency::find($id);
         if (!$agency) {
             return 'Not agency found.';

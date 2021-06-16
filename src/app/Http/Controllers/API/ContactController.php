@@ -49,6 +49,11 @@ class ContactController extends BaseController
 
     public function create(Request $request)
     {
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
+        }
+
         $data = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -62,12 +67,14 @@ class ContactController extends BaseController
         $image = $request->avatar;
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
-        $imageName = rand(10,22).'.'.'png';
+        $imageName = rand(10,1000).'.'.'png';
         \File::put(public_path('images'). '/' . $imageName, base64_decode($image));
         $data['avatar'] = $imageName;
+
         $professions = $request->professions;
 
         $contact = Contact::create($data);
+
         $contact->professions()->attach($professions);
         if (is_null($contact)) {
             return response(['status' => "failed"]);
@@ -81,6 +88,11 @@ class ContactController extends BaseController
 
     public function update(Request $request, $id)
     {
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
+        }
+
         $contact = Contact::find($id);
         if (!$contact) {
             return 'Not contact found.';
@@ -95,6 +107,19 @@ class ContactController extends BaseController
             'web' => 'required',
             'avatar' => 'required',
         ]);
+
+        $image = public_path("images/{$contact->avatar}");
+        if (\File::exists($image)) {
+            unlink($image);
+        }
+
+        $image = $request->avatar;
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = rand(10,1000).'.'.'png';
+        \File::put(public_path('images'). '/' . $imageName, base64_decode($image));
+        $data['avatar'] = $imageName;
+
         $professions = $request->professions;
         $contact->professions()->detach();
         $contact->professions()->attach($professions);
@@ -109,6 +134,11 @@ class ContactController extends BaseController
 
     public function search($searchTerm)
     {
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
+        }
+
         return Contact::with('agency')
             ->where('first_name', 'LIKE', "%$searchTerm%" )
             ->orWhere('last_name','LIKE', "%$searchTerm%")
@@ -120,6 +150,11 @@ class ContactController extends BaseController
 
     public function destroy($id)
     {
+        $user = \Auth::guard('api')->user();
+        if (!$user) {
+            return 'Not authenticated.';
+        }
+
         $contact = Contact::findOrFail($id);
         $contact->delete();
 

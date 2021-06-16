@@ -21,7 +21,7 @@ export default class Contacts extends Component {
                 phone: "",
                 email: "",
                 web: "",
-                avatar: "",
+                avatar: [],
             },
             newContactData: {
                 id: "",
@@ -46,7 +46,7 @@ export default class Contacts extends Component {
                 phone: "",
                 email: "",
                 web: "",
-                avatar: '',
+                avatar: [],
             },
             editContactModal: false,
             noDataFound: "",
@@ -88,12 +88,13 @@ export default class Contacts extends Component {
 
     onDrop = async (picture) => {
         console.log("picture", picture);
-        let { newContactData } = this.state;
+        let { newContactData, editContactData } = this.state;
         if (picture.length) {
             const base64Image = await this.toBase64(picture[0]);
             // this.setState({ pictures: base64Image });
             newContactData['avatar'] = base64Image;
-            this.setState({ newContactData });
+            editContactData['avatar'] = base64Image;
+            this.setState({ newContactData, editContactData });
         }
     };
 
@@ -419,6 +420,7 @@ export default class Contacts extends Component {
                         onChangeAgenciesDropdownHandler={this.onChangeAgenciesDropdownHandler}
                         onChangeProfessionsDropdownHandler={this.onChangeProfessionsDropdownHandler}
                         editContact={this.editContact}
+                        onDrop={this.onDrop}
                         editContactData={editContactData}
                         updateContact={this.updateContact}
                         agencies={this.state.agencies}
