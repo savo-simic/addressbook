@@ -26,6 +26,7 @@ export default class Countries extends Component {
             },
             editCountryModal: false,
             noDataFound: "",
+            errors: {}
         }
     }
 
@@ -101,6 +102,12 @@ export default class Countries extends Component {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
+
+        let name =   this.state.newCountryData['name'];
+        if (name === "") {
+            alert('Name field is required.');
+            return;
+        }
         axios
             .post(
                 "http://localhost:88/api/countries/create",
@@ -130,7 +137,7 @@ export default class Countries extends Component {
         });
     };
 
-    onChangeEditCountryHandler = (e) => {console.log('ddds');
+    onChangeEditCountryHandler = (e) => {
         let { editCountryData } = this.state;
         editCountryData[e.target.name] = e.target.value;
         this.setState({ editCountryData });
@@ -146,6 +153,12 @@ export default class Countries extends Component {
     updateCountry = () => {
         let {id, name} = this.state.editCountryData;
         const token = localStorage.getItem("access_token");
+
+        if (name === "") {
+            alert('Name field is required.');
+            return;
+        }
+
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
