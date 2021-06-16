@@ -327,10 +327,10 @@ export default class Contacts extends Component {
                 config
             )
             .then((response) => {
-                this.getAgencies();
+                this.getContacts();
                 this.setState({
                     editContactModal: false,
-                    editContactData: { first_name },
+                    editContactData: { first_name, web },
                     isLoading:false,
                 });
             })
@@ -420,7 +420,7 @@ export default class Contacts extends Component {
                         onChangeAgenciesDropdownHandler={this.onChangeAgenciesDropdownHandler}
                         onChangeProfessionsDropdownHandler={this.onChangeProfessionsDropdownHandler}
                         editContact={this.editContact}
-                        onDrop={this.onDrop}
+                        onDrop={this.onDrop}xte
                         editContactData={editContactData}
                         updateContact={this.updateContact}
                         agencies={this.state.agencies}
