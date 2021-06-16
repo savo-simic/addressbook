@@ -19,8 +19,8 @@ export default class ShowContact extends Component {
                             <Label for="id">Phone: {this.props.contactData.phone}</Label><br/>
                             <Label for="id">Email: {this.props.contactData.email}</Label><br/>
                             <Label for="id">Web: {this.props.contactData.web}</Label><br/>
-                            {/*<img src={require('./images/' + this.props.contactData.avatar)} />*/}
-                            <img className="col-md-6" src={`/images/` + this.props.contactData.avatar}></img>
+                            {/*<img src={`/images/` + this.props.contactData.avatar}></img>*/}
+                            <img className="col-md-6" src={`http://localhost:88/images/` + this.props.contactData.avatar}></img>
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
