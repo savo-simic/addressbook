@@ -105,20 +105,22 @@ class ContactController extends BaseController
             'phone' => 'required',
             'email' => 'required',
             'web' => 'required',
-            'avatar' => 'required',
         ]);
 
-        $image = public_path("images/{$contact->avatar}");
-        if (\File::exists($image)) {
-            unlink($image);
+        if (!is_null($request->avatar)) {
+            $image = public_path("images/{$request->avatar}");
+            if (\File::exists($image)) {return $request->avatar;
+                $data['avatar'] = $imageName;
+            } else {
+                unlink(public_path("images/{$contact->avatar}"));
+                $image = $request->avatar;
+                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace(' ', '+', $image);
+                $imageName = rand(10,1000).'.'.'png';
+                \File::put(public_path('images'). '/' . $imageName, base64_decode($image));
+                $data['avatar'] = $imageName;
+            }
         }
-
-        $image = $request->avatar;
-        $image = str_replace('data:image/png;base64,', '', $image);
-        $image = str_replace(' ', '+', $image);
-        $imageName = rand(10,1000).'.'.'png';
-        \File::put(public_path('images'). '/' . $imageName, base64_decode($image));
-        $data['avatar'] = $imageName;
 
         $professions = $request->professions;
         $contact->professions()->detach();
