@@ -137,6 +137,22 @@ export default class Cities extends Component {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
+
+        let name =   this.state.newCityData['name'];
+        let country =   this.state.newCityData['country_id'];
+
+        if (name === "") {
+            alert('Name field is required.');
+
+            return;
+        }
+
+        if (country === "") {
+            alert('Country field is required.');
+
+            return;
+        }
+
         axios
             .post(
                 "http://localhost:88/api/cities/create",
@@ -206,6 +222,19 @@ export default class Cities extends Component {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
+
+        if (name === "") {
+            alert('Name field is required.');
+
+            return;
+        }
+
+        if (country_id === "") {
+            alert('Country field is required.');
+
+            return;
+        }
+
         this.setState({
             isLoading: true,
         });
