@@ -18,11 +18,11 @@ class CountryController extends BaseController
             return 'Not authenticated.';
         }
 
-        $country = Country::get();
+        $countries = Country::all();
 
         return [
             'status' => "success",
-            'data'   => $country,
+            'data'   => $countries,
         ];
     }
 
@@ -40,7 +40,6 @@ class CountryController extends BaseController
     public function show($id)
     {
         $country = Country::findOrFail($id);
-
 
         return [
             'status' => "success",
