@@ -57,9 +57,10 @@ class ProfessionController extends BaseController
             return 'Not profession found.';
         }
 
-        $data = $request->validate([
-            'name' => ['required'],
-        ]);
+//        $data = $request->validate([
+//            'name' => ['required'],
+//        ]);
+        $data = $request->all();
 
         $profession->update($data);
 

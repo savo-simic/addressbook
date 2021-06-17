@@ -84,14 +84,15 @@ class AgencyController extends BaseController
             return 'Not agency found.';
         }
 
-        $data = $request->validate([
-            'name' => ['required'],
-            'address' => ['required'],
-            'city_id' => ['required'],
-            'phone' => ['required'],
-            'email' => ['required'],
-            'web' => ['required'],
-        ]);
+//        $data = $request->validate([
+//            'name' => ['required'],
+//            'address' => ['required'],
+//            'city_id' => ['required'],
+//            'phone' => ['required'],
+//            'email' => ['required'],
+//            'web' => ['required'],
+//        ]);
+        $data = $request->all();
 
         $agency->update($data);
 

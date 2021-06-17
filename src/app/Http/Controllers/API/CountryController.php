@@ -73,9 +73,10 @@ class CountryController extends BaseController
             return 'Not country found.';
         }
 
-        $data = $request->validate([
-            'name' => ['required'],
-        ]);
+//        $data = $request->validate([
+//            'name' => ['required'],
+//        ]);
+        $data = $request->all();
 
         $country->update($data);
 
