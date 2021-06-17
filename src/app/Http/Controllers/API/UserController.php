@@ -72,18 +72,18 @@ class UserController extends BaseController
             return 'No user found.';
         }
 
-        $data = $request->validate([
-            'name' => ['required'],
-            'email' => ['required'],
-//            'password' => ['required'],
-        ]);
-        $data['password'] = Hash::make($request->password);
+//        $data = $request->validate([
+//            'name' => ['required'],
+//            'email' => ['required'],
+////            'password' => ['required'],
+//        ]);
+//        $data['password'] = Hash::make($request->password);
         $role = $request->role['role'];
         if ($role) {
             $user->setRoles([$role]);
         };
 
-        $user->update($data);
+        $user->update($request->all());
 
         return [
             'status'  => "success",
