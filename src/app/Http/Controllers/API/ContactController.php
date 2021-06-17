@@ -109,8 +109,8 @@ class ContactController extends BaseController
 
         if (!is_null($request->avatar)) {
             $image = public_path("images/{$request->avatar}");
-            if (\File::exists($image)) {return $request->avatar;
-                $data['avatar'] = $imageName;
+            if (\File::exists($image)) {
+                $data['avatar'] = $request->avatar;
             } else {
                 unlink(public_path("images/{$contact->avatar}"));
                 $image = $request->avatar;
