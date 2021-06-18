@@ -67,10 +67,11 @@ class CityController extends BaseController
             return 'Not city found.';
         }
 
-        $data = $request->validate([
-            'name' => ['required'],
-            'country_id' => ['required'],
-        ]);
+//        $data = $request->validate([
+//            'name' => ['required'],
+//            'country_id' => ['required'],
+//        ]);
+        $data = $request->all();
 
         $city->update($data);
         $city->load('country');

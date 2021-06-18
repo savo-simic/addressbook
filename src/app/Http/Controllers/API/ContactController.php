@@ -98,14 +98,15 @@ class ContactController extends BaseController
             return 'Not contact found.';
         }
 
-        $data = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'agency_id' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'web' => 'required',
-        ]);
+//        $data = $request->validate([
+//            'first_name' => 'required',
+//            'last_name' => 'required',
+//            'agency_id' => 'required',
+//            'phone' => 'required',
+//            'email' => 'required',
+//            'web' => 'required',
+//        ]);
+        $data = $request->all();
 
         if (!is_null($request->avatar)) {
             $image = public_path("images/{$request->avatar}");
